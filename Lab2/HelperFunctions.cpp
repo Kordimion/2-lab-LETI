@@ -3,10 +3,10 @@
 #include <ctime>
 #include <chrono>
 
-void fillWithRandomIntegers(int* const begin, int* const end) 
+void fillWithRandomIntegers(int* const leftPtr, int* const rightPtr) 
 {
 	std::srand(unsigned(std::time(nullptr)));
-    for (int* iter = begin; end - iter > 0; ++iter) 
+    for (int* iter = leftPtr; rightPtr - iter > 0; ++iter) 
     {
         *iter = std::rand();
         *iter %= 199;
@@ -14,24 +14,28 @@ void fillWithRandomIntegers(int* const begin, int* const end)
     }
 }
 
-int* binarySearchLowerBound(int* leftPtr, int* rightPtr, int& const element) 
+int* binarySearchUpperBound(int* leftPtr, int* rightPtr, const int& element) 
 {
-    int* mid;
-    while (rightPtr - leftPtr > 0)
+	while (rightPtr - leftPtr > 0)
     {
-        mid = leftPtr + (rightPtr - leftPtr) / 2;
+        int* mid = leftPtr + (rightPtr - leftPtr) / 2;
 
-        if (element >= *mid)
-        {
-            leftPtr = mid + 1;
-        }
-        else
-        {
-            rightPtr = mid;
-        }
+        if (element >= *mid) leftPtr = mid + 1;
+        else rightPtr = mid;
     }
 
-    //if (leftPos < length && leftPtr <= element) leftPos++;
+    return leftPtr;
+}
+
+int* binarySearchLowerBound(int* leftPtr, int* rightPtr, const int& element) 
+{
+	while (rightPtr - leftPtr > 0)
+    {
+        int* mid = leftPtr + (rightPtr - leftPtr) / 2;
+
+        if (element <= *mid) rightPtr = mid;
+        else leftPtr = mid + 1;
+    }
 
     return leftPtr;
 }
@@ -128,7 +132,7 @@ void insertSort(int* leftPtr, int* rightPtr)
     //TODO: implement same algorithm without STL
 
     for (auto i = leftPtr; i != rightPtr; ++i) 
-        std::rotate(std::upper_bound(leftPtr, i, *i), i, i + 1);
+        std::rotate(binarySearchUpperBound(leftPtr, i, *i), i, i + 1);
 }
 
 int* partition(int* leftPtr, int* rightPtr)

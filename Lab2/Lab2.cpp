@@ -199,7 +199,7 @@ int main()
 	loop.AddHandler("moreThanAmount", [&sortedArr]() {
 		int b;
 		std::cin >> b;
-		int* upperPos = std::upper_bound(sortedArr, sortedArr + ARR_LENGTH, b);
+		int* upperPos = binarySearchUpperBound(sortedArr, sortedArr + ARR_LENGTH, b);
 		std::cout << "there are " << sortedArr + ARR_LENGTH - upperPos
 			<< " items more than " << b << '\n';
 	});
@@ -207,7 +207,7 @@ int main()
 	loop.AddHandler("lessThanAmount", [&sortedArr]() {
 		int b;
 		std::cin >> b;
-		int* lowerPos = std::lower_bound(sortedArr, sortedArr + ARR_LENGTH, b);
+		int* lowerPos = binarySearchLowerBound(sortedArr, sortedArr + ARR_LENGTH, b);
 		std::cout << "there are " << lowerPos - sortedArr
 			<< " items less than " << b << '\n';
 	});

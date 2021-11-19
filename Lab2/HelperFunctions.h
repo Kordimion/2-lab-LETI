@@ -1,5 +1,9 @@
 #pragma once
-void fillWithRandomIntegers(int* begin, int* end);
+void fillWithRandomIntegers(int* leftPtr, int* rightPtr);
+
+int* binarySearchLowerBound(int* leftPtr, int* rightPtr, const int& element);
+
+int* binarySearchUpperBound(int* leftPtr, int* rightPtr, const int& element);
 
 void bubbleSort(int* leftPtr, int* rightPtr);
 
